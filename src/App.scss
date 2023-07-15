@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  margin: 0em auto 2em;
+  max-width: 48em;
+  font: {
+    size: 1em;
+    family: 'Nunito Sans', helvetica, arial, sans-serif;
+    weight: 600;
+  }
 }
 
 .App-logo {
@@ -36,3 +43,19 @@
     transform: rotate(360deg);
   }
 }
+
+.content {
+  font-size: 1.15em;
+  line-height: 1.5em;
+  padding: 1.5em 1.75em 0;
+
+}
+header{
+  border-bottom: 1px solid rgba($color: hsl(257, 78%, 31%), $alpha: 1.0);
+  margin-bottom: 1em;
+}
+
+article {
+  text-align: left;
+}
+
