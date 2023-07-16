@@ -2,18 +2,19 @@ import React, { useState } from 'react'
 
 type Props = {
   onSearchFormSubmit: (data: string) => void
+  query: string
+  onInputChange: (data: string) => void
 }
 
 const TunesSearchForm: React.FC<Props> = (props) => {
+    const {query} = props
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-      
         props.onSearchFormSubmit(query)
     }
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value)
+        props.onInputChange(e.target.value)
     }
-    const [query, setQuery] = useState('')
     
   return (
       <div>

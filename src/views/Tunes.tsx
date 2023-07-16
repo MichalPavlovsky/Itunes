@@ -5,6 +5,7 @@ import TunesSearchForm from '../components/tunes/TunesSearchForm'
 
 
 const Tunes = () => {
+    const [query, setQuery] = useState('')
     const [songs, setSongs] = useState([
         { id: 1, artist: 'Great Artist', name: 'Great Song' },
         {
@@ -22,12 +23,17 @@ const Tunes = () => {
         }
         setSongs([...songs, newSong])
     }
-    
+    const handleInputChange = (data: string) => {
+        setQuery(data)
+    }
     return (
         <div>
         <article className='tunes'>
             <h1>Tunes</h1>
-            <TunesSearchForm onSearchFormSubmit={handleSearchFormSubmit}/>
+            <TunesSearchForm 
+            onInputChange={handleInputChange}
+            query={query}
+            onSearchFormSubmit={handleSearchFormSubmit}/>
             <TunesList songs={songs}/>
         </article>
 
