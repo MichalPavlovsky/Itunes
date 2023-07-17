@@ -1,27 +1,33 @@
-import React, { useState } from 'react'
+import React, { useRef} from 'react'
+import { debounce } from 'lodash-es'
 
 type Props = {
-  onSearchFormSubmit: (data: string) => void
-  query: string
-  onInputChange: (data: string) => void
+  onSearch: (query: string) => void
 }
 
 const TunesSearchForm: React.FC<Props> = (props) => {
-    const {query} = props
+  const searchInput = useRef<HTMLInputElement>(null)
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        props.onSearchFormSubmit(query)
+        searchForMusic()
+      
     }
-    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.onInputChange(e.target.value)
+    const searchForMusic = () => {
+      let searchString = searchInput.current?.value
+      if (searchString) props.onSearch(searchString)    
     }
+
+    const handleInput = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+      searchForMusic()
+    }, 500)
     
   return (
       <div>
         <form onSubmit={handleSubmit}>
           <input 
+          autoFocus
+          ref={searchInput}
           type='text' 
-          value={query} 
           onChange={handleInput}
           className='search' 
           />
