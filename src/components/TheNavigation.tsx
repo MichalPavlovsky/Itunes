@@ -12,6 +12,8 @@ const TheNavigation = (props: Props) => {
           <NavLink to="/" exact>Home</NavLink>
           <NavLink to="/tunes">Tunes</NavLink>
           <NavLink to="/about">About</NavLink>
+          <NavLink to="/register">Register</NavLink>
+          <NavLink to="/login">Login</NavLink>
       </nav>
   )
 }

@@ -7,9 +7,9 @@ type Props = {
 
 const TunesSearchForm: React.FC<Props> = (props) => {
   const searchInput = useRef<HTMLInputElement>(null)
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        searchForMusic()
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    searchForMusic()
       
     }
     const searchForMusic = () => {

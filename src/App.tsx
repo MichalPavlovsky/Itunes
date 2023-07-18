@@ -9,6 +9,8 @@ import TheNavigation from './components/TheNavigation'
 import About from "./views/About";
 import Tunes from "./views/Tunes";
 import Home from "./views/Home";
+import Register from "./views/Register";
+import Login from "./views/Login";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/" component={Home} exact />
         <Route path="/tunes" component={Tunes}/>
         <Route path="/about" component={About}/>
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
       </Switch>
       </main>
     </div>
