@@ -11,7 +11,7 @@ const Register = () => {
     const emailfield = useRef<HTMLInputElement>(null);
     const passwordfield = useRef<HTMLInputElement>(null);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // Tu môžeš vykonať POST požiadavku s použitím zadaných údajov
         const data = {
@@ -22,20 +22,20 @@ const Register = () => {
         };
 
         // Napríklad pomocou fetch funkcie
-        fetch('http://localhost:8080/api/v1/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then((response) => response.json())
-            .then((responseData) => {
-                console.log(responseData); // Tu môžeš spracovať odpoveď zo servera
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
             });
+
+            const responseData = await response.json();
+            console.log(responseData); // Tu môžeš spracovať odpoveď zo servera
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {

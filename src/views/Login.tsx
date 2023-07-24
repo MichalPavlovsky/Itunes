@@ -1,16 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 interface LoginProps {
     isLogin: (value: boolean) => void;
     valLog: boolean;
+    setToken: (token: string) => void;
 }
 
-const Login: React.FC<LoginProps> = ({ isLogin, valLog }) => {
+const Login: React.FC<LoginProps> = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [token, setToken] = useState('');
-
     const emailField = useRef<HTMLInputElement>(null);
     const passwordField = useRef<HTMLInputElement>(null);
 
@@ -36,9 +35,8 @@ const Login: React.FC<LoginProps> = ({ isLogin, valLog }) => {
                 }
             })
             .then((responseData) => {
-                setToken(responseData.token);
-                isLogin(true);
-                console.log(responseData.token); // Sto; // Update the isLoggedIn state in the parent component // Redirect to the UserPage
+                props.setToken(responseData.token); // Nastavení tokenu v rodičovské komponentě
+                props.isLogin(true); // Nastavení stavu přihlášení v rodičovské komponentě
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -59,17 +57,8 @@ const Login: React.FC<LoginProps> = ({ isLogin, valLog }) => {
                 break;
         }
     };
-    console.log(valLog)
 
-    useEffect(() => {
-        console.log('ef ' + valLog);
-        console.log('tu somoo');
-        if (valLog) {
-            isLogin(true); // Synchronizace stavu po zavedení komponenty, pokud je uživatel přihlášen
-        }
-    }, [valLog]); // Přidali jsme valLog jako závislost
-
-    if (valLog) {
+    if (props.valLog) {
         return <Redirect to="/user" />;
     }
 

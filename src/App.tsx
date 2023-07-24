@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.scss';
+
+// components
 import TheNavigation from './components/TheNavigation';
+// views
 import About from "./views/About";
 import Tunes from "./views/Tunes";
 import Home from "./views/Home";
@@ -12,12 +15,7 @@ import UserPage from "./views/UserPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLoggedIn = (value: boolean) => {
-    setIsLoggedIn(value);
-    console.log('app ' + isLoggedIn);
-  };
-  console.log(isLoggedIn);
+  const [token, setToken] = useState('');
 
   return (
     <div className="App App-header">
@@ -30,8 +28,12 @@ function App() {
           <Route path="/tunes" component={Tunes} />
           <Route path="/about" component={About} />
           <Route path="/register" component={Register} />
-          {!isLoggedIn && <Route path="/login" render={() => <Login valLog={isLoggedIn} isLogin={handleLoggedIn} />} />}
-          {isLoggedIn && <Route path="/user" component={UserPage} />}
+          <Route path="/login">
+            {isLoggedIn ? <Redirect to="/user" /> : <Login valLog={isLoggedIn} isLogin={setIsLoggedIn} setToken={setToken} />}
+          </Route>
+          <Route path="/user">
+            {isLoggedIn ? <UserPage token={token} /> : <Redirect to="/login" />}
+          </Route>
         </Switch>
       </main>
     </div>
