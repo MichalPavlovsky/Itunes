@@ -5,6 +5,8 @@ interface LoginProps {
     isLogin: (value: boolean) => void;
     valLog: boolean;
     setToken: (token: string) => void;
+    setFirstName: (name: string) => void;
+    setLastName: (name: string) => void;
 }
 
 const Login: React.FC<LoginProps> = (props) => {
@@ -35,8 +37,12 @@ const Login: React.FC<LoginProps> = (props) => {
                 }
             })
             .then((responseData) => {
-                props.setToken(responseData.token); // Nastavení tokenu v rodičovské komponentě
-                props.isLogin(true); // Nastavení stavu přihlášení v rodičovské komponentě
+                props.setToken(responseData.token);
+                console.log(responseData.firstName) // Nastavení tokenu v rodičovské komponentě
+                console.log(responseData.lastName) // Nastavení tokenu v rodičovské komponentě
+                props.isLogin(true);
+                props.setFirstName(responseData.firstName) // Nastavení stavu přihlášení v rodičovské komponentě
+                props.setLastName(responseData.lastName) // Nastavení stavu přihlášení v rodičovské komponentě
             })
             .catch((error) => {
                 console.error('Error:', error);

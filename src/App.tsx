@@ -16,6 +16,8 @@ import UserPage from "./views/UserPage";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   return (
     <div className="App App-header">
@@ -29,10 +31,10 @@ function App() {
           <Route path="/about" component={About} />
           <Route path="/register" component={Register} />
           <Route path="/login">
-            {isLoggedIn ? <Redirect to="/user" /> : <Login valLog={isLoggedIn} isLogin={setIsLoggedIn} setToken={setToken} />}
+            {isLoggedIn ? <Redirect to="/user" /> : <Login valLog={isLoggedIn} isLogin={setIsLoggedIn} setToken={setToken} setFirstName={setFirstName} setLastName={setLastName}/>}
           </Route>
           <Route path="/user">
-            {isLoggedIn ? <UserPage token={token} /> : <Redirect to="/login" />}
+            {isLoggedIn ? <UserPage firstName={firstName} lastName={lastName} token={token} /> : <Redirect to="/login" />}
           </Route>
         </Switch>
       </main>
